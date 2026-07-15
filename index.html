@@ -289,7 +289,7 @@
   script.src = 'https://cdn1.adoberesources.net/alloy/' + SDK_VERSION + '/alloy.min.js';
   script.async = true;
   script.onload = function(){
-    window.alloy('configure', { orgId: "6FC947105BB267B70A495EE9@AdobeOrg", edgeConfigId: "09350434-3bbd-47b6-8ebb-fbfe9c5e57c0" }).then(function(){
+    window.alloy('configure', { orgId: ORG_ID, edgeConfigId: EDGE_CONFIG_ID }).then(function(){
       return window.alloy('sendEvent', {
         renderDecisions: true,
         xdm: { web: { webPageDetails: { name: document.title, URL: window.location.href } } },
