@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nordkyst — Cabins along the quiet coast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --fjord:#16302c; --fjord-deep:#0f2320; --paper:#f2ede1; --paper-dim:#e8e0d0;
+    --brass:#b1793c; --rust:#a23e2c; --moss:#5c7361; --ink:#22201b; --ink-soft:#5a564c;
+    --line: rgba(34,32,27,0.14);
+    --serif:'Fraunces', serif; --sans:'Inter', sans-serif; --mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); }
+  img,svg{ display:block; }
+  a{ color:inherit; }
+  :focus-visible{ outline:2px solid var(--brass); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  /* ---------- Nav ---------- */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 40px; position:sticky; top:0; z-index:10;
+    background:var(--paper); border-bottom:1px solid var(--line);
+  }
+  .logo{ font-family:var(--serif); font-weight:600; font-size:21px; letter-spacing:0.01em; }
+  .logo em{ color:var(--rust); font-style:italic; }
+  .nav-links{ display:flex; gap:32px; font-size:14px; }
+  .nav-links a{ text-decoration:none; color:var(--ink-soft); }
+  .nav-links a:hover{ color:var(--ink); }
+  #nav-cta{
+    font-family:var(--sans); font-weight:600; font-size:13.5px; padding:10px 18px;
+    background:var(--fjord); color:var(--paper); border-radius:3px; text-decoration:none;
+    border:none; cursor:pointer;
+  }
+  @media (max-width:720px){ .nav-links{ display:none; } }
+
+  /* ---------- Hero ---------- */
+  #hero-section{
+    background: linear-gradient(160deg, var(--fjord) 0%, var(--fjord-deep) 100%);
+    color:var(--paper); padding:88px 40px 130px; position:relative; overflow:hidden;
+  }
+  #hero-section::after{
+    content:''; position:absolute; right:-8%; top:10%; width:520px; height:520px;
+    background: radial-gradient(circle, rgba(177,121,60,0.16), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-inner{ max-width:640px; position:relative; z-index:1; }
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--brass); margin-bottom:18px; display:block;
+  }
+  #hero-heading{
+    font-family:var(--serif); font-size:56px; line-height:1.05; font-weight:600; margin:0 0 22px;
+    letter-spacing:-0.01em;
+  }
+  #hero-heading em{ font-style:italic; font-weight:500; color:#d9c7a3; }
+  #hero-subheading{
+    font-size:17px; line-height:1.65; color:#cfd9d2; margin:0 0 44px; max-width:480px;
+  }
+
+  /* ---------- Signature: boarding-pass search stub ---------- */
+  #hero-search-widget{
+    background:var(--paper); border-radius:6px; display:flex; max-width:620px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.32); position:relative;
+  }
+  #hero-search-widget .stub-fields{
+    display:flex; flex:1; flex-wrap:wrap;
+  }
+  .field{ padding:20px 22px; flex:1; min-width:130px; border-right:1px dashed var(--line); }
+  .field:last-of-type{ border-right:none; }
+  .field label{ display:block; font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px; }
+  .field input, .field select{
+    border:none; background:none; font-family:var(--sans); font-size:14.5px; color:var(--ink);
+    width:100%; padding:0; font-weight:500;
+  }
+  .field input:focus, .field select:focus{ outline:none; }
+  #hero-cta{
+    background:var(--rust); color:var(--paper); border:none; font-family:var(--sans);
+    font-weight:600; font-size:14px; padding:0 30px; border-radius:0 6px 6px 0; cursor:pointer;
+    letter-spacing:0.01em; transition:background 140ms ease;
+  }
+  #hero-cta:hover{ background:#8a3323; }
+  /* perforation notch, ticket-stub detail */
+  #hero-search-widget::before, #hero-search-widget::after{
+    content:''; position:absolute; width:18px; height:18px; background:var(--fjord-deep);
+    border-radius:50%; top:50%; transform:translateY(-50%);
+  }
+  #hero-search-widget::before{ left:-9px; }
+  #hero-search-widget::after{ right:-9px; }
+  @media (max-width:720px){
+    #hero-heading{ font-size:38px; }
+    #hero-search-widget{ flex-direction:column; }
+    .field{ border-right:none; border-bottom:1px dashed var(--line); }
+    #hero-cta{ border-radius:0 0 6px 6px; padding:16px; }
+  }
+
+  /* ---------- Destinations ---------- */
+  #destinations-section{ padding:96px 40px 70px; max-width:1180px; margin:0 auto; }
+  .section-eyebrow{ font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--brass); }
+  .section-title{ font-family:var(--serif); font-size:34px; font-weight:600; margin:10px 0 46px; max-width:520px; }
+  .destinations-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  @media (max-width:900px){ .destinations-grid{ grid-template-columns:1fr; } }
+  .destination-card{
+    border:1px solid var(--line); border-radius:6px; overflow:hidden; background:#fff;
+    transition:transform 160ms ease, box-shadow 160ms ease;
+  }
+  .destination-card:hover{ transform:translateY(-3px); box-shadow:0 14px 30px rgba(22,48,44,0.1); }
+  .card-photo{ height:170px; position:relative; }
+  .card-photo .grain{ position:absolute; inset:0; opacity:0.08; background:repeating-linear-gradient(45deg, #000 0 2px, transparent 2px 4px); }
+  .card-body{ padding:20px 22px 24px; }
+  .card-body .loc{ font-family:var(--mono); font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.06em; }
+  .card-body h3{ font-family:var(--serif); font-size:21px; margin:8px 0 8px; font-weight:600; }
+  .card-body p{ font-size:13.5px; color:var(--ink-soft); line-height:1.55; margin:0 0 16px; }
+  .card-price{ font-family:var(--mono); font-size:13px; color:var(--rust); font-weight:500; }
+
+  /* ---------- Why section ---------- */
+  #why-section{ background:var(--paper-dim); padding:90px 40px; }
+  .why-inner{ max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:44px; }
+  @media (max-width:800px){ .why-inner{ grid-template-columns:1fr; } }
+  .why-item .mark{ font-family:var(--serif); font-style:italic; font-size:30px; color:var(--moss); margin-bottom:14px; display:block; }
+  .why-item h4{ font-size:16px; margin:0 0 8px; font-weight:600; }
+  .why-item p{ font-size:14px; color:var(--ink-soft); line-height:1.6; margin:0; }
+
+  /* ---------- Testimonial ---------- */
+  #testimonial-section{ padding:90px 40px; max-width:720px; margin:0 auto; text-align:center; }
+  #testimonial-quote{
+    font-family:var(--serif); font-size:26px; line-height:1.5; font-weight:500; font-style:italic;
+    color:var(--ink); margin:0 0 20px;
+  }
+  .quote-attrib{ font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); }
+
+  /* ---------- Footer ---------- */
+  footer{ background:var(--fjord-deep); color:#b9c4bd; padding:56px 40px 34px; }
+  .footer-inner{ max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:30px; }
+  .footer-brand{ font-family:var(--serif); color:var(--paper); font-size:19px; font-weight:600; }
+  #footer-cta{
+    background:var(--brass); color:var(--fjord-deep); border:none; font-weight:600; font-size:13.5px;
+    padding:12px 22px; border-radius:3px; cursor:pointer; font-family:var(--sans);
+  }
+  .footer-meta{ font-family:var(--mono); font-size:11.5px; color:#7c8983; margin-top:36px; text-align:center; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Nord<em>kyst</em></div>
+  <div class="nav-links">
+    <a href="#destinations-section">Cabins</a>
+    <a href="#why-section">Why Nordkyst</a>
+    <a href="#testimonial-section">Journal</a>
+  </div>
+  <button id="nav-cta">Check availability</button>
+</nav>
+
+<section id="hero-section">
+  <div class="hero-inner">
+    <span class="eyebrow">Coastal Norway · Off-season rates now open</span>
+    <h1 id="hero-heading">Quiet enough to<br><em>hear the tide</em> again.</h1>
+    <p id="hero-subheading">Twelve timber cabins scattered along the fjord, each one out of sight of the next. No itinerary — just the coast, a wood stove, and however many days you can spare.</p>
+
+    <div id="hero-search-widget">
+      <div class="stub-fields">
+        <div class="field">
+          <label for="field-destination">Destination</label>
+          <select id="field-destination">
+            <option>Lysøen Fjord</option>
+            <option>Skomvær Isles</option>
+            <option>Reine Coastline</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="field-dates">Dates</label>
+          <input id="field-dates" type="text" placeholder="Any week" value="Any week">
+        </div>
+        <div class="field">
+          <label for="field-guests">Guests</label>
+          <input id="field-guests" type="text" placeholder="2 adults" value="2 adults">
+        </div>
+      </div>
+      <button id="hero-cta">Search stays</button>
+    </div>
+  </div>
+</section>
+
+<section id="destinations-section">
+  <span class="section-eyebrow">Currently available</span>
+  <h2 class="section-title">Three coastlines, twelve cabins, no two the same.</h2>
+  <div class="destinations-grid">
+
+    <article class="destination-card" id="destination-card-1">
+      <div class="card-photo" style="background:linear-gradient(160deg,#4a6d63,#1d3630);"><div class="grain"></div></div>
+      <div class="card-body">
+        <div class="loc">Lysøen Fjord</div>
+        <h3>The Boathouse</h3>
+        <p>A converted net-shed on stilts over the water, reachable only by a short rowboat crossing.</p>
+        <div class="card-price">from 1,450 NOK / night</div>
+      </div>
+    </article>
+
+    <article class="destination-card" id="destination-card-2">
+      <div class="card-photo" style="background:linear-gradient(160deg,#7c6a4f,#3a2f21);"><div class="grain"></div></div>
+      <div class="card-body">
+        <div class="loc">Skomvær Isles</div>
+        <h3>Fyrvokterens Hus</h3>
+        <p>Former lighthouse keeper's cottage, still with the original brass fittings and a working beacon.</p>
+        <div class="card-price">from 1,780 NOK / night</div>
+      </div>
+    </article>
+
+    <article class="destination-card" id="destination-card-3">
+      <div class="card-photo" style="background:linear-gradient(160deg,#5c7361,#243b30);"><div class="grain"></div></div>
+      <div class="card-body">
+        <div class="loc">Reine Coastline</div>
+        <h3>Høyloftet</h3>
+        <p>A raised hayloft cabin above a working sheep farm, with a private trail down to the shore.</p>
+        <div class="card-price">from 1,290 NOK / night</div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="why-section">
+  <div class="why-inner">
+    <div class="why-item">
+      <span class="mark">01</span>
+      <h4>One cabin, one crossing</h4>
+      <p>Every stay is set apart from the others — by water, by trail, or by tree line. You won't hear another guest.</p>
+    </div>
+    <div class="why-item">
+      <span class="mark">02</span>
+      <h4>Stocked, not staffed</h4>
+      <p>Firewood, provisions, and a handwritten local's guide are left for you. No check-in desk, no small talk required.</p>
+    </div>
+    <div class="why-item">
+      <span class="mark">03</span>
+      <h4>Weather-first cancellation</h4>
+      <p>Fjord weather doesn't follow a calendar. Reschedule free of charge up to the morning you're due to arrive.</p>
+    </div>
+  </div>
+</section>
+
+<section id="testimonial-section">
+  <p id="testimonial-quote">"I went for four nights and came back having spoken perhaps forty words. Exactly what I'd hoped for."</p>
+  <div class="quote-attrib">— GUEST LOG, HØYLOFTET, MARCH STAY</div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Nord<em style="font-style:italic;color:var(--brass);">kyst</em></div>
+    <button id="footer-cta">Check availability</button>
+  </div>
+  <div class="footer-meta">NORDKYST COASTAL CABINS — TEST SURFACE FOR TARGET VEC AUTHORING, NOT A REAL BOOKING SITE</div>
+</footer>
+
+<script>
+(function(){
+  // ====== EDIT THESE, or override via ?orgId=...&edgeConfigId=... in the URL ======
+  var params = new URLSearchParams(window.location.search);
+  var ORG_ID = params.get('orgId') || 'PASTE_YOUR_ORG_ID_HERE';
+  var EDGE_CONFIG_ID = params.get('edgeConfigId') || 'PASTE_YOUR_DATASTREAM_ID_HERE';
+  var SDK_VERSION = params.get('sdkVersion') || '2.19.1';
+  var VIEW_NAME = params.get('view') || 'hero';
+  // ===================================================================
+
+  // ---- command queue bootstrap (matches what alloy.min.js expects when draining pre-load calls) ----
+  window.__alloyNS = window.__alloyNS || [];
+  if(window.__alloyNS.indexOf('alloy') === -1) window.__alloyNS.push('alloy');
+  window.alloy = window.alloy || function(){
+    var resolveFn, rejectFn;
+    var promise = new Promise(function(resolve, reject){ resolveFn = resolve; rejectFn = reject; });
+    (window.alloy.q = window.alloy.q || []).push([resolveFn, rejectFn, arguments]);
+    return promise;
+  };
+  window.alloy.q = window.alloy.q || [];
+
+  if(ORG_ID.indexOf('PASTE_') === 0){
+    console.warn('[Nordkyst] Web SDK not configured — edit ORG_ID/EDGE_CONFIG_ID in the script, or load this page with ?orgId=...&edgeConfigId=...');
+    return;
+  }
+
+  var script = document.createElement('script');
+  script.src = 'https://cdn1.adoberesources.net/alloy/' + SDK_VERSION + '/alloy.min.js';
+  script.async = true;
+  script.onload = function(){
+    window.alloy('configure', { orgId: ORG_ID, edgeConfigId: EDGE_CONFIG_ID }).then(function(){
+      return window.alloy('sendEvent', {
+        renderDecisions: true,
+        xdm: { web: { webPageDetails: { name: document.title, URL: window.location.href } } },
+        personalization: { decisionScopes: [VIEW_NAME] }
+      });
+    }).then(function(result){
+      console.log('[Nordkyst] sendEvent resolved', result);
+    }).catch(function(err){
+      console.error('[Nordkyst] Web SDK error', err);
+    });
+  };
+  document.head.appendChild(script);
+})();
+</script>
+
+</body>
+</html>
